@@ -1,0 +1,44 @@
+server:
+    port: 8080
+
+
+spring:
+    # 数据库连接配置
+    datasource:
+        url: jdbc:mysql://localhost:3306/bookstore?useSSL=false&allowPublicKeyRetrieval=true
+        # 数据库的用户名和密码, 因人而异
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    mvc:
+        static-path-pattern: /static/**
+    thymeleaf:
+        cache: false
+        prefix: classpath:/templates/
+        suffix: .html
+        encoding: utf-8
+        servlet:
+            content-type: text/html
+        mode: HTML
+    devtools:
+        restart:
+            enabled: true
+    servlet:
+        multipart:
+            max-file-size: 2MB
+    web:
+        resources:
+            static-locations: classpath:/static
+# 日志的配置, 没有单独配置 `logback-spring.xml` 这样的专门用于配置日志的文件, 只是在此文件中进行了简要的配置
+logging:
+    file:
+        path: C:\Users\Deng\IdeaProjects\bookstore\src\main\resources\logs # 日志存储的路径, 因人而异
+    level:
+        root: info
+
+# MyBatis 配置
+mybatis:
+    mapper-locations: classpath:/mapper/*.xml
+    type-aliases-package: cn.coding.bookstore.entity
+    configuration:
+        map-underscore-to-camel-case: true

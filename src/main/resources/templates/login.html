@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网上书城登录</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/alpinejs/3.10.5/cdn.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+    <div class="box-img">
+        <div class="img-bg background"></div>
+    </div>
+    <div class="box-form">
+        <div class="login">
+            <div class="title">
+                <span>Welcome to login</span>
+                <span>二手书城交易网</span>
+            </div>
+            <div class="other-login">
+                <div class="other-login-item">
+                    <div>
+                        <span><a class="register" th:href="@{/register}">还没有账号?点击注册</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <form action="" id="loginForm">
+                <div class="forms">
+                    <label for="username"></label>
+                    <input type="text" id="username" placeholder="username" class="ipts newmimicry-protrusion" required>
+                    <label for="password"></label>
+                    <input type="password" id="password" placeholder="password" class="ipts newmimicry-protrusion"
+                           required>
+                    <input type="submit" class="login-btn newmimicry-protrusion" value="Login">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    let loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        login();
+    });
+
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        axios({
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: '/api/login',
+            params: {
+                username: username,
+                password: password
+            }
+        }).then(function (response) {
+            // console.log(response); debug 专用
+            if (response.data.code === 200)
+                window.location.href = response.data.msg; // 复用 msg 传递转移参数
+            else if (response.data.code === 400) {
+                alert(response.data.msg);
+                window.location.href = response.data.data;
+            } else
+                alert(response.data.msg);
+
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+</script>
+
+</html>

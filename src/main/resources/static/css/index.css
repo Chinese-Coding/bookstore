@@ -1,0 +1,85 @@
+html {
+    background-color: rgb(180, 165, 150)
+}
+
+a {
+    /* 超链接去下划线 */
+    text-decoration: none;
+}
+
+.login_register {
+    margin-right: 55px;
+    font-size: 21px;
+}
+
+#top {
+    width: 100%;
+    height: 70px;
+}
+
+#top h1 {
+    float: left;
+    font-size: 50px;
+    font-weight: 900;
+    margin-left: 50px;
+    font-family: revert;
+}
+
+#top #top-right {
+    height: 30px;
+    float: right;
+    margin: 40px 65px 0 0;
+}
+
+.novel {
+    width: 850px;
+    margin: 100px auto;
+}
+
+.novel h1 {
+    padding-bottom: 10px;
+    border-bottom: #3F6580 solid 1px;
+    text-align: center;
+}
+
+.novel ul {
+    margin-top: 10px;
+    text-align: center; /* 居中文本和 inline-block 元素 */
+}
+
+.novel ul li {
+    list-style: none;
+    width: 100px;
+    transition: all 0.8s;
+    position: relative;
+    overflow: hidden;
+    border-left: 1px solid rgba(255, 255, 255, 0.8);
+    border-left-width: 2px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    display: inline-block; /* 显示为 inline-block */
+}
+
+.novel ul li .image_title {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    background-color: rgba(0, 0, 0, .5);
+    font-size: x-small;
+    line-height: 20px;
+    bottom: 0;
+    left: 0;
+    text-transform: uppercase;
+}
+
+.novel ul li .image_title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.novel ul:hover li {
+    width: 90px;
+}
+
+.novel ul li:hover {
+    width: 200px;
+}

@@ -1,0 +1,138 @@
+.content {
+    width: 80vw;
+    height: 80vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.content .box-img {
+    flex: 1;
+    position: relative;
+}
+
+.content .box-img .img-bg {
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
+    position: absolute;
+}
+
+.content .box-img .background {
+    opacity: 1;
+    background: url(../../static/img/background.png) no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.content .box-form {
+    flex: 1;
+    background: rgb(94, 126, 162);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .box-form .login {
+    padding: 20%;
+    position: relative;
+}
+
+.content .box-form .login .title {
+    margin: 40px 0;
+    font-family: "Lucida Fax", Courier, monospace;
+}
+
+.content .box-form .login .title span {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.content .box-form .login .title span:nth-child(1) {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.content .box-form .login .title span:nth-child(2) {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.content .box-form .login .other-login {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 20%;
+}
+
+.content .box-form .login .other-login .other-login-item .register {
+    color: #d4adad;
+}
+
+.content .box-form .login .other-login .other-login-item .register:hover {
+    color: #222222;
+}
+
+.content .box-form .login .forms .ipts {
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin: 40px 0;
+    outline: none;
+    border: 0;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    color: rgb(186, 212, 227);
+    transition: 0.3s;
+    border-radius: 13px;
+    font-weight: 100;
+    font-size: 20px;
+
+}
+
+.content .box-form .login .forms .ipts::-moz-placeholder {
+    font-weight: 100;
+    font-size: 20px;
+    color: rgb(186, 212, 227);
+    font-family: "Lucida Fax", Courier, monospace;
+}
+
+.content .box-form .login .forms .ipts::placeholder {
+    font-weight: 100;
+    font-size: 20px;
+    color: rgb(186, 212, 227);
+    font-family: "Lucida Fax", Courier, monospace;
+}
+
+.content .box-form .login .forms .login-btn {
+    width: 40%;
+    height: 54px;
+    border: 0;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 11px;
+    margin: 10px auto;
+    background: #5e7ea2;
+    transition: box-shadow 0.3s ease-in-out;
+    float: right;
+    font-family: "Lucida Fax", Courier, monospace;
+}
+
+.newmimicry-depression, .content .change-color:hover,
+.content .box-form .login .other-login .other-login-item .iconfont-wrapper:hover,
+.content .box-form .login .forms .ipts:focus, .content .box-form .login .forms .login-btn:hover {
+    background: #5e7ea2;
+    box-shadow: inset 2px 6px 10px #4c6683,
+    inset -5px -5px 14px #7096c1, 6px 8px 17px #4c6683, -5px -5px 25px #7096c1;
+}
+
+.newmimicry-protrusion {
+    background: #5e7ea2;
+    box-shadow: inset 0 0 0 #4c6683,
+    inset 0 0 0 #7096c1, 6px 8px 17px #4c6683, -5px -5px 25px #7096c1;
+}

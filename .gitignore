@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+src/main/resources/logs # 将日志文件从 git 仓库中排除掉
 
 ### STS ###
 .apt_generated

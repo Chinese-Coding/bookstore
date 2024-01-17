@@ -1,6 +1,7 @@
 package cn.coding.bookstore.aspect
 
 import cn.coding.bookstore.controller.LoginController
+import cn.coding.bookstore.controller.UserController
 import cn.coding.bookstore.entity.ResponseObject
 import cn.coding.bookstore.utils.getIpAddr
 import jakarta.annotation.Resource
@@ -43,6 +44,36 @@ class LogAspect {
                 val data = result.data as Pair<*, *>
                 "${data.second}(${data.first}) 重复登录, IP: $ip"
             }
+        }
+        logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
+    }
+
+    @AfterReturning(
+        "execution(* cn.coding.bookstore.controller.UserController.remove(..))",
+        returning = "result"
+    )
+    fun userDeleteLog(result: ResponseObject) {
+        val logger = LoggerFactory.getLogger(UserController::class.java)
+        val data = result.data as Pair<*, *>
+        val log = when (result.code) {
+            200 -> "删除用户 ${data.second}(${data.first}) 成功"
+            400 -> "删除用户 ${data.second}(${data.first}) 失败"
+            else -> ""
+        }
+        logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
+    }
+
+    @AfterReturning(
+        "execution(* cn.coding.bookstore.controller.UserController.modifyUserInfo(..))",
+        returning = "result"
+    )
+    fun userUpdateLog(result: ResponseObject) {
+        val logger = LoggerFactory.getLogger(UserController::class.java)
+        val data = result.data as Pair<*, *>
+        val log = when (result.code) {
+            200 -> "修改用户 ${data.second}(${data.first}) 成功"
+            400 -> "修改用户 ${data.second}(${data.first}) 失败"
+            else -> ""
         }
         logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
     }

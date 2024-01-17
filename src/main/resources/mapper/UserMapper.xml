@@ -16,7 +16,7 @@
             age=#{user.age},
             gender=#{user.gender},
             email=#{user.email},
-            role    =#{user.role}
+            role=#{user.role}
         where user_id = #{userId}
     </update>
 </mapper>

@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    background-color: antiquewhite;
+}
+
+a {
+    color: #0e0e0e;
+    text-decoration: none;
+}
+
+h1 {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 9px 0 0 8px;
+    background-color: #995c22;
+}
+
+.box {
+    width: calc(100% - 300px);
+    height: 100%;
+    margin: 80px 100px 100px 200px;
+}
+
+.box .tips:hover {
+    color: #870f0f;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.box .tips {
+    height: 22px;
+    float: right;
+    margin: 0 20px 20px 0;
+    display: inline-block;
+}
+
+.box table {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #a38c8c;
+    border-radius: 10px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.box table tr th {
+    width: 215px;
+    height: 80px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+.box table tr td {
+    width: 215px;
+    height: 50px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+.box table tr td .buttons {
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #995c22;
+    border-radius: 20%;
+    box-shadow: 0 0 3px 1px rgb(92, 63, 38);
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.box table tr td .buttons:hover {
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #fd8915;
+    border-radius: 20%;
+    box-shadow: 0 0 3px 1px rgb(92, 63, 38);
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.box .page {
+    width: 300px;
+    height: 30px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.box .page span {
+    display: inline-block;
+}
+
+.box .page .page_number {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.box .page .page_number:hover {
+    font-size: 18px;
+}
+
+.box .page #now {
+    color: #fa0404;
+    font-size: 18px;
+}

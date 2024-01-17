@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍管理页面</title>
+    <link rel="stylesheet" href="../../static/css/manager/index.css">
+    <link rel="stylesheet" href="../../static/css/manager/sidebar.css">>
+</head>
+<body>
+<h1>后台管理页</h1>
+<div id="left">
+    <div class="manager_button" id="home_manager"><a th:href="@{/manager/index}">首页</a></div>
+    <div class="manager_button" id="book_manager"><a th:href="@{/manager/book}">书籍管理</a></div>
+    <div class="manager_button" id="user_manager"><a th:href="@{/manager/user}">用户管理</a></div>
+    <div class="manager_button" id="mine_manager"><a th:href="@{/manager/mine}">个人信息</a></div>
+    <div class="manager_button" id="password_manager"><a th:href="@{/manager/password}">密码修改</a></div>
+    <div class="manager_button" id="exit"><a th:href="@{/exit}">退出系统</a></div>
+</div>
+<div class="home_box">
+    欢迎 <span th:text="${session.now_user.name}" style="color: #222222"> </span> 管理登录后台页面
+</div>
+</body>
+</html>

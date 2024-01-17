@@ -1,7 +1,6 @@
 server:
     port: 8080
 
-
 spring:
     # 数据库连接配置
     datasource:
@@ -29,6 +28,7 @@ spring:
     web:
         resources:
             static-locations: classpath:/static
+
 # 日志的配置, 没有单独配置 `logback-spring.xml` 这样的专门用于配置日志的文件, 只是在此文件中进行了简要的配置
 logging:
     file:
@@ -42,3 +42,11 @@ mybatis:
     type-aliases-package: cn.coding.bookstore.entity
     configuration:
         map-underscore-to-camel-case: true
+
+# pagehelper 配置
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    autoRuntimeDialect: true

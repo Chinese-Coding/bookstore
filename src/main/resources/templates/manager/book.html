@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户信息管理页</title>
+    <title>书籍管理页面</title>
     <link rel="stylesheet" href="../../static/css/manager/manager.css">
     <link rel="stylesheet" href="../../static/css/manager/sidebar.css">
-    <script defer src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.3/axios.min.js"></script>
+
+    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="https://cdn.bootcdn.net/ajax/libs/alpinejs/3.10.5/cdn.min.js"></script>
 </head>
 <body>
-<h1>后台管理</h1>
+<h1>书籍管理</h1>
+
 <div id="left">
     <div class="manager_button" id="home_manager"><a th:href="@{/manager/index}">首页</a></div>
     <div class="manager_button" id="book_manager"><a th:href="@{/manager/book}">书籍管理</a></div>
@@ -22,32 +24,38 @@
 <div class="box" x-data="tasks()" x-init="show(false)">
     <span class="tips" x-show="page!==null"><a @click="show(false)">全部展示</a></span>
     <span class="tips" x-show="page===null"><a @click="show(true, 1)">分页展示</a></span>
+
+    <span class="tips" id="add_box"><a th:href="@{/manager/book/add}" id="add">添加书籍</a></span>
     <table>
         <thead>
         <tr>
             <th>序号</th>
-            <th>用户名</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>邮箱</th>
-            <th>身份</th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>价格</th>
+            <th>类别</th>
+            <th>描述</th>
+            <th>销量</th>
+            <th>库存</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <template x-for="(user, index) in users">
+        <template x-for="(book, index) in books">
             <tr>
-                <td x-text="index+1"></td>
-                <td x-text="user.username"></td>
-                <td x-text="user.name"></td>
-                <td x-text="user.gender"></td>
-                <td x-text="user.age"></td>
-                <td x-text="user.email"></td>
-                <td x-text="user.role"></td>
+                <td x-show="page === null" x-text="index+1"></td>
+                <td x-show="page !== null" x-text="index + (page.pageNum - 1) * page.pageSize + 1"></td>
+                <td x-text="book.title"></td>
+                <td x-text="book.author"></td>
+                <td x-text="book.price"></td>
+                <td x-text="book.category"></td>
+                <td x-text="book.description"></td>
+                <td x-text="book.sales"></td>
+                <td x-text="book.stock"></td>
                 <td>
-                    <span class="buttons"><a @click="remove(user.userId)" class="del">删除</a></span>
-                    <span class="buttons"><a @click="window.location.href = `/manager/user/modify/${user.userId}`" class="alter">修改</a></span>
+                    <span class="buttons"><a @click="remove(book.bookId)" class="del">删除</a></span>
+                    <span class="buttons"><a @click="window.location.href = `/manager/book/modify/${book.bookId}`"
+                                             class="alter">修改</a></span>
                 </td>
             </tr>
         </template>
@@ -65,40 +73,39 @@
         <a class="page_number" x-show="page.hasNextPage" @click="show(true, page.pages)">尾页</a>
     </div>
 
-    <div id="back_index"><a th:href="@{/manager/index}">返回首页</a></div>
+    <div id="back_index"><a th:href="@{/manager/home}">返回首页</a></div>
 </div>
 
 <script>
     function tasks() {
         return {
-            users: [],
+            books: [],
             page: null,
             show(page = false, pageNumber = 1) {
                 let self = this;
                 if (page === false) {
-                    axios.get('/api/manager/user')
+                    axios.get('/api/manager/book')
                         .then(function (res) {
-                           // console.log(res); // debug 专用
-                            self.users = res.data;
+                            self.books = res.data;
                             self.page = null;
                         })
                         .catch(function (error) {
                             console.log(error);
                         })
                 } else {
-                    axios.get('/api/manager/user/' + pageNumber)
+                    axios.get('/api/manager/book/' + pageNumber)
                         .then(function (res) {
                             self.page = res.data;
-                            self.users = self.page.list;
+                            self.books = self.page.list;
                         })
                         .catch(function (error) {
                             console.log(error);
                         })
                 }
             },
-            remove(userId) {
+            remove(bookId) {
                 let self = this;
-                axios.delete('/api/manager/user/' + userId)
+                axios.delete('/api/manager/book/' + bookId)
                     .then(function (response) {
                         // console.log(response); // debug 专用
                         if (response.data.code === 400)
@@ -118,6 +125,5 @@
         }
     }
 </script>
-
 </body>
 </html>

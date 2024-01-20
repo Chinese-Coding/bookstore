@@ -1,5 +1,6 @@
 package cn.coding.bookstore.aspect
 
+import cn.coding.bookstore.controller.BookController
 import cn.coding.bookstore.controller.LoginController
 import cn.coding.bookstore.controller.UserController
 import cn.coding.bookstore.entity.ResponseObject
@@ -33,17 +34,11 @@ class LogAspect {
     fun loginLog(result: ResponseObject) {
         val logger = LoggerFactory.getLogger(LoginController::class.java)
         val ip = getIpAddr(request)
+        val data = result.data as Pair<*, *>
         val log = when (result.code) {
-            200 -> {
-                val data = result.data as Pair<*, *>
-                "${data.second}(${data.first}) 登录成功, IP: $ip"
-            }
-
+            200 -> "${data.second}(${data.first}) 登录成功, IP: $ip"
             400 -> "登录失败, IP: $ip"
-            else -> {
-                val data = result.data as Pair<*, *>
-                "${data.second}(${data.first}) 重复登录, IP: $ip"
-            }
+            else -> "${data.second}(${data.first}) 重复登录, IP: $ip"
         }
         logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
     }
@@ -73,6 +68,50 @@ class LogAspect {
         val log = when (result.code) {
             200 -> "修改用户 ${data.second}(${data.first}) 成功"
             400 -> "修改用户 ${data.second}(${data.first}) 失败"
+            else -> ""
+        }
+        logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
+    }
+
+    @AfterReturning(
+        "execution(* cn.coding.bookstore.controller.BookController.add(..))",
+        returning = "result"
+    )
+    fun bookAddLog(result: ResponseObject) {
+        val logger = LoggerFactory.getLogger(BookController::class.java)
+        val log = when (result.code) {
+            200 -> "添加图书 ${result.data} 成功"
+            400 -> "添加图书 ${result.data} 失败"
+            401 -> "添加图书 ${result.data} 失败 (图片文件格式错误)"
+            else -> ""
+        }
+        logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
+    }
+
+    @AfterReturning(
+        "execution(* cn.coding.bookstore.controller.BookController.remove(..))",
+        returning = "result"
+    )
+    fun bookDeleteLog(result: ResponseObject) {
+        val logger = LoggerFactory.getLogger(BookController::class.java)
+        val log = when (result.code) {
+            200 -> "删除图书 ${result.data} 成功"
+            400 -> "删除图书 ${result.data} 失败"
+            else -> ""
+        }
+        logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
+    }
+
+    @AfterReturning(
+        "execution(* cn.coding.bookstore.controller.BookController.modify(..))",
+        returning = "result"
+    )
+    fun bookModifyLog(result: ResponseObject) {
+        val logger = LoggerFactory.getLogger(BookController::class.java)
+        val log = when (result.code) {
+            200 -> "修改图书 ${result.data} 成功"
+            400 -> "修改图书 ${result.data} 失败"
+            401 -> "修改图书 ${result.data} 失败 (图片文件格式错误)"
             else -> ""
         }
         logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息

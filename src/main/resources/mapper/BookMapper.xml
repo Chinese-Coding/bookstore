@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.coding.bookstore.mapper.BookMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="bookId">
+        insert into book
+        values (null, #{title}, #{author}, #{price}, #{category}, #{description}, #{sales}, #{stock})
+    </insert>
+
+    <update id="update">
+        update book
+        set title=#{book.title},
+            author=#{book.author},
+            price=#{book.price},
+            category=#{book.category},
+            description=#{book.description},
+            sales=#{book.sales},
+            stock=#{book.stock}
+        where book_id = #{bookId};
+    </update>
+
+    <select id="selectByPrice" resultType="cn.coding.bookstore.entity.Book">
+        select * from book where <![CDATA[(price >= #{left} or #{left} is null) and (price <= #{right} or #{right} is null)]]>;
+    </select>
+</mapper>

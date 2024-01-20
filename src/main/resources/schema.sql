@@ -19,3 +19,21 @@ CREATE TABLE `user`
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
+
+DROP TABLE IF EXISTS `book`;
+CREATE TABLE `book`
+(
+    `book_id`     int            NOT NULL AUTO_INCREMENT,
+    `title`       varchar(255)   NULL DEFAULT NULL,
+    `author`      varchar(255)   NULL DEFAULT NULL,
+    `price`       decimal(10, 2) NULL DEFAULT NULL,
+    `category`    varchar(255)   NULL DEFAULT NULL,
+    `description` text           NULL,
+    `sales`       int            NULL DEFAULT 0,
+    `stock`       int            NULL DEFAULT 0,
+    PRIMARY KEY (`book_id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 21
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;

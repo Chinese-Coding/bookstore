@@ -21,7 +21,7 @@ spring:
         mode: HTML
     devtools:
         restart:
-            enabled: true
+            enabled: false
     servlet:
         multipart:
             max-file-size: 2MB

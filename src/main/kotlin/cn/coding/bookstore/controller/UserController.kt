@@ -15,29 +15,10 @@ class UserController {
     @Resource
     private lateinit var userMapper: UserMapper
 
-    /**
-     * 查询所有用户信息, 除了管理员本人信息
-     */
-    @ResponseBody
-    @GetMapping(value = ["/api/manager/user"], produces = ["application/json"])
-    fun allShow(@SessionAttribute(name = "now_user") adminUser: User): List<User> {
-        return userMapper.selectAllUser(adminUser.userId!!)
-    }
-
-    /**
-     * 分页查询
-     */
-    @ResponseBody
-    @GetMapping("/api/manager/user/{pageNum}")
-    fun pageShow(@PathVariable pageNum: Int, @SessionAttribute(name = "now_user") adminUser: User): PageInfo<User> {
-        PageHelper.startPage<User>(pageNum, 8) // 很有意思, 原项目中不需要指定 E 的类型, 而在 kotlin 中却需要
-        val users = userMapper.selectAllUser(adminUser.userId!!)
-        return PageInfo(users, 3)
-    }
 
     /**
      * 删除用户信息
-     */
+     * */
     @ResponseBody
     @DeleteMapping("/api/manager/user/{userId}")
     fun remove(@PathVariable userId: Int): ResponseObject {
@@ -62,12 +43,32 @@ class UserController {
 
     /**
      * 修改用户信息
-     */
+     * */
     @ResponseBody
     @PostMapping("/api/manager/user/modify/{userId}")
     fun modifyUserInfo(@PathVariable userId: Int, user: User): ResponseObject {
         if (userMapper.update(user, userId) > 0)
             return ResponseObject("修改成功", 200, Pair(userId, user.username))
         return ResponseObject("修改失败", 400, Pair(userId, user.username))
+    }
+
+    /**
+     * 查询所有用户信息, 除了管理员本人信息
+     * */
+    @ResponseBody
+    @GetMapping(value = ["/api/manager/user"], produces = ["application/json"])
+    fun allShow(@SessionAttribute(name = "now_user") adminUser: User): List<User> {
+        return userMapper.selectAllUser(adminUser.userId!!)
+    }
+
+    /**
+     * 分页查询
+     * */
+    @ResponseBody
+    @GetMapping("/api/manager/user/{pageNum}")
+    fun pageShow(@PathVariable pageNum: Int, @SessionAttribute(name = "now_user") adminUser: User): PageInfo<User> {
+        PageHelper.startPage<User>(pageNum, 8) // 很有意思, 原项目中不需要指定 E 的类型, 而在 kotlin 中却需要
+        val users = userMapper.selectAllUser(adminUser.userId!!)
+        return PageInfo(users, 3)
     }
 }

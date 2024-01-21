@@ -15,35 +15,15 @@ import java.io.ByteArrayInputStream
 import java.nio.file.Paths
 import javax.imageio.ImageIO
 
-@Controller
+@RestController
 class BookController {
     @Resource
     private lateinit var bookMapper: BookMapper
 
-    /**
-     * 展示全部书籍信息
-     */
-    @ResponseBody
-    @GetMapping(value = ["/api/manager/book"], produces = ["application/json"])
-    fun allShow(): List<Book> {
-        return bookMapper.selectAll()
-    }
-
-    /**
-     * 分页展示书籍信息
-     */
-    @ResponseBody
-    @GetMapping(value = ["/api/manager/book/{pageNumber}"], produces = ["application/json"])
-    fun pageShow(@PathVariable pageNumber: Int): PageInfo<Book> {
-        PageHelper.startPage<Book>(pageNumber, 5)
-        val books = bookMapper.selectAll()
-        return PageInfo(books, 3)
-    }
 
     /**
      * 增加书籍, 并上传图片
      * */
-    @ResponseBody
     @PostMapping("/api/manager/book/add")
     fun add(book: Book, @RequestParam("image") file: MultipartFile): ResponseObject {
         if (bookMapper.insert(book) < 0)
@@ -62,7 +42,6 @@ class BookController {
     /**
      * 删除书籍
      * */
-    @ResponseBody
     @DeleteMapping("/api/manager/book/{bookId}")
     fun remove(@PathVariable bookId: Int): ResponseObject {
         val book = bookMapper.selectById(bookId)
@@ -87,7 +66,6 @@ class BookController {
     /**
      * 修改书籍
      * */
-    @ResponseBody
     @PostMapping("/api/manager/book/modify/{bookId}")
     fun modify(@PathVariable bookId: Int, book: Book, @RequestParam("image") file: MultipartFile): ResponseObject {
         if (bookMapper.update(book, bookId) < 0)
@@ -101,5 +79,23 @@ class BookController {
             } else return ResponseObject("文件格式错误, 请上传图片文件", 401, book.toString())
         }
         return ResponseObject("修改图书成功", 200, book.toString())
+    }
+
+    /**
+     * 展示全部书籍信息
+     * */
+    @GetMapping(value = ["/api/manager/book"], produces = ["application/json"])
+    fun allShow(): List<Book> {
+        return bookMapper.selectAll()
+    }
+
+    /**
+     * 分页展示书籍信息
+     * */
+    @GetMapping(value = ["/api/manager/book/{pageNumber}"], produces = ["application/json"])
+    fun pageShow(@PathVariable pageNumber: Int): PageInfo<Book> {
+        PageHelper.startPage<Book>(pageNumber, 5)
+        val books = bookMapper.selectAll()
+        return PageInfo(books, 3)
     }
 }

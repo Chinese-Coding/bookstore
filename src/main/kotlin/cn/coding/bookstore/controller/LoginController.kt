@@ -38,7 +38,7 @@ class LoginController {
 
     /**
      * 登录接口
-     */
+     * */
     @ResponseBody
     @PostMapping(value = ["/api/login"], produces = ["application/json"])
     fun login(
@@ -65,6 +65,5 @@ class LoginController {
                 Pair(user.userId, user.username)
             )
         }
-
     }
 }

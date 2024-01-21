@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息修改页</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/alpinejs/3.10.5/cdn.min.js"></script>
+</head>
+<body>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="mb-4">个人信息修改</h2>
+            <form method="post" th:action="@{/api/manager/mine/modify}" name="user_modify" id="user_modify"
+                  class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="username" class="form-label">用户名称</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder=" 输入用户名"
+                           th:value="${session.now_user?.username}">
+                    <div class="tip" hidden>格式有误</div>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">姓名</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="您的姓名"
+                           th:value="${session.now_user?.name}" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">性别</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="male" value="男" checked>
+                            <label class="form-check-label" for="male">男</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="female" value="女">
+                            <label class="form-check-label" for="female">女</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">年龄</label>
+                    <input type="text" class="form-control" name="age" id="age" placeholder="您的年龄"
+                           th:value="${session.now_user?.age}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">电子邮件</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder=" 输入邮箱地址"
+                           th:value="${session.now_user?.email}" required>
+                    <div class="tip" hidden>格式有误</div>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">身份</label>
+                    <input type="text" class="form-control" name="role" id="role" placeholder="输入身份"
+                           th:value="${session.now_user?.role}" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submit" name="submit">提交</button>
+            </form>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a th:href="@{/manager/index}" class="btn btn-link">返回首页</a>
+    </div>
+</div><script th:inline="javascript">
+    let modifyForm = document.getElementById('user_modify');
+    modifyForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(modifyForm);
+        axios.post('/api/manager/mine/modify', formData)
+            .then(function (response) {
+                console.log(response); // debug 专用
+                if (response.data.code === 200) {
+                    alert(response.data.msg);
+                    window.location.href = "/manager/index";
+                } else if (response.data.code === 400)
+                    alert(response.data.msg);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    })
+</script>
+</body>
+</html>

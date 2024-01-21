@@ -21,7 +21,7 @@ class UserController {
     @ResponseBody
     @GetMapping(value = ["/api/manager/user"], produces = ["application/json"])
     fun allShow(@SessionAttribute(name = "now_user") adminUser: User): List<User> {
-        return userMapper.selectAllUser(adminUser.userId)
+        return userMapper.selectAllUser(adminUser.userId!!)
     }
 
     /**
@@ -31,7 +31,7 @@ class UserController {
     @GetMapping("/api/manager/user/{pageNum}")
     fun pageShow(@PathVariable pageNum: Int, @SessionAttribute(name = "now_user") adminUser: User): PageInfo<User> {
         PageHelper.startPage<User>(pageNum, 8) // 很有意思, 原项目中不需要指定 E 的类型, 而在 kotlin 中却需要
-        val users = userMapper.selectAllUser(adminUser.userId)
+        val users = userMapper.selectAllUser(adminUser.userId!!)
         return PageInfo(users, 3)
     }
 

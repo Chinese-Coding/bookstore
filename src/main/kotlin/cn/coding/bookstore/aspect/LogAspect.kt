@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component
 
 /**
  * 日志切片
+ *
+ * 每个函数中逻辑一致, 所以看上去有些笨拙, 但仔细想想好像没有什么优化的办法.
  * */
 @Component
 @Aspect
@@ -40,6 +42,23 @@ class LogAspect {
             200 -> "${data.second}(${data.first}) 登录成功, IP: $ip"
             400 -> "登录失败, IP: $ip"
             else -> "${data.second}(${data.first}) 重复登录, IP: $ip"
+        }
+        logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
+    }
+
+    @AfterReturning(
+        "execution(* cn.coding.bookstore.controller.LoginController.register(..))",
+        returning = "result"
+    )
+    fun registerLog(result: ResponseObject) {
+        val logger = LoggerFactory.getLogger(LoginController::class.java)
+        val ip = getIpAddr(request)
+        val data = result.data as Pair<*, *>
+        val log = when (result.code) {
+            200 -> "${data.second}(${data.first}) 注册成功, IP: $ip"
+            400 -> "${data.second} 注册失败, IP: $ip"
+            401 -> "${data.second} 注册失败 (用户名重复), IP: $ip"
+            else -> ""
         }
         logger.info("\u001B[33m--- $log ---\u001B[0m") // 在控制台上输出黄色的日志信息
     }

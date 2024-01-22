@@ -8,6 +8,8 @@ interface UserMapper {
     @Select("select * from user where username = #{username} and password = #{password}")
     fun login(@Param("username") username: String, @Param("password") password: String): User?
 
+    fun register(@Param("user") user: User): Int
+
     fun insert(user: User): Int
 
     @Delete("delete from user where user_id = #{userId}")

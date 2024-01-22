@@ -66,4 +66,20 @@ class LoginController {
             )
         }
     }
+
+    /**
+     * 登录接口
+     * */
+    @ResponseBody
+    @PostMapping("/api/register")
+    fun register(user: User): ResponseObject {
+        val isUser = userMapper.selectByUsername(user.username)
+        return if (isUser == null) {
+            if (userMapper.register(user) > 0)
+                ResponseObject("注册成功", 200, Pair(user.userId, user.name))
+            else
+                ResponseObject("注册失败", 200, Pair(user.userId, user.name))
+        } else
+            ResponseObject("用户名已存在", 401, Pair(user.userId, user.name))
+    }
 }

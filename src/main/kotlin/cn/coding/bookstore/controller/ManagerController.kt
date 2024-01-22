@@ -22,9 +22,9 @@ class ManagerController {
         val userId = nowUser.userId as Int
         if (userMapper.update(user, userId) > 0) {
             session.setAttribute("now_user", userMapper.selectById(userId))
-            return ResponseObject("修改个人信息成功", 200, Pair(user.userId, user.name))
+            return ResponseObject("修改个人信息成功", 200, Pair(userId, user.name))
         } else
-            return ResponseObject("修改个人信息失败", 400, Pair(user.userId, user.name))
+            return ResponseObject("修改个人信息失败", 400, Pair(userId, user.name))
     }
 
     @PostMapping(value = ["/api/manager/password/modify/{userId}"], produces = ["application/json"])

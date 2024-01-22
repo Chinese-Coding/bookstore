@@ -6,7 +6,6 @@ import cn.coding.bookstore.mapper.BookMapper
 import com.github.pagehelper.PageHelper
 import com.github.pagehelper.PageInfo
 import jakarta.annotation.Resource
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.ModelAndView

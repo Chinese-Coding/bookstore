@@ -15,7 +15,7 @@ interface BookMapper {
     @Select("select * from book where book_id = #{bookId}")
     fun selectById(bookId: Int): Book
 
-    fun selectByPrice(@Param("left") left: Double, @Param("right") right: Double): List<Book>
+    fun selectByPrice(@Param("left") left: Double?, @Param("right") right: Double?): List<Book>
 
     @Delete("delete from book where book_id = #{bookId}")
     fun delete(bookId: Int): Int

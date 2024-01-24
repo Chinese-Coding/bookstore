@@ -56,7 +56,7 @@ class LoginController {
                 }
                 return ResponseObject(path, 200, Pair(user.userId, user.username)) // 复用 msg 传递转移参数
             } else
-                return ResponseObject("登录失败", 400, "/login") // 消息码 400 表示用户名或密码输入错误
+                return ResponseObject("登录失败", 400, Pair(null, null)) // 消息码 400 表示用户名或密码输入错误
         } else {
             val user = session.getAttribute("now_user") as User
             return ResponseObject(

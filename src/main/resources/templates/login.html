@@ -69,7 +69,7 @@
                 window.location.href = response.data.msg; // 复用 msg 传递转移参数
             else if (response.data.code === 400) {
                 alert(response.data.msg);
-                window.location.href = response.data.data;
+                window.location.href = '/login';
             } else
                 alert(response.data.msg);
 
